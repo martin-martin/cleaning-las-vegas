@@ -1,0 +1,129 @@
+	<node changeset="21468145" id="2762980048" lat="36.1010055" lon="-115.023266" timestamp="2014-04-03T00:04:43Z" uid="496923" user="abellaofernandez" version="2">
+		<tag k="fax" v="(702) 455-8747" />
+		<tag k="name" v="Clark County Wetlands Park" />
+		<tag k="phone" v="(702) 455-7522" />
+		<tag k="leisure" v="park" />
+		<tag k="website" v="http://www.clarkcountynv.gov/wetlandspark" />
+		<tag k="addr:city" v="Las Vegas" />
+		<tag k="wikipedia" v="en:Clark County Wetlands Park" />
+		<tag k="wheelchair" v="yes" />
+		<tag k="addr:street" v="Wetlands Park Lane" />
+		<tag k="addr:postcode" v="89122" />
+		<tag k="addr:housenumber" v="7050" />
+	</node>
+
+
+	<node changeset="28434674" id="2782284309" lat="36.1004332" lon="-115.3047247" timestamp="2015-01-27T04:35:12Z" uid="1836471" user="Blobo123" version="2">
+		<tag k="name" v="Sunset Pizzeria" />
+		<tag k="phone" v="702-778-4444" />
+		<tag k="amenity" v="restaurant" />
+		<tag k="cuisine" v="pizza" />
+		<tag k="website" v="http://www.sunsetpizzeriatropicana.com" />
+		<tag k="capacity" v="50" />
+		<tag k="addr:city" v="Las Vegas" />
+		<tag k="addr:street" v="West Tropicana Avenue" />
+		<tag k="addr:postcode" v="89147" />
+		<tag k="opening_hours" v="11-9" />
+		<tag k="payment:bitcoin" v="yes" />
+		<tag k="addr:housenumber" v="9730" />
+	</node>
+
+
+	<node changeset="28434233" id="3313343438" lat="36.0986178" lon="-115.2073005" timestamp="2015-01-27T03:33:13Z" uid="1836471" user="Blobo123" version="2">
+		<tag k="name" v="Drones Plus" />
+		<tag k="email" v="shop@dronesplus.com" />
+		<tag k="phone" v="702-577-1923" />
+		<tag k="website" v="http://www.dronesplus.com" />
+		<tag k="addr:street" v="South Decatur Boulevard" />
+<!-- typo... D rones... -->
+		<tag k="description" v="rone sales and repair." />
+		<tag k="addr:postcode" v="89118" />
+		<tag k="payment:bitcoin" v="yes" />
+		<tag k="addr:housenumber" v="5010" />
+	</node>
+
+	<node changeset="32320895" id="3602357194" lat="36.1101382" lon="-115.0592612" timestamp="2015-06-30T23:45:56Z" uid="92274" user="adjuva" version="2">
+		<tag k="name" v="Las Vegas KOA at Sam's Town" />
+		<tag k="tourism" v="caravan_site" />
+		<tag k="website" v="http://koa.com/campgrounds/las-vegas/" />
+		<tag k="addr:city" v="Las Vegas" />
+		<tag k="addr:state" v="NV" />
+		<tag k="addr:street" v="Boulder Highway" />
+		<tag k="addr:country" v="US" />
+		<tag k="addr:postcode" v="89122" />
+		<tag k="addr:housenumber" v="5225" />
+	</node>
+
+
+
+	<!-- AND THE WAYS LOOK LIKE THIS: -->
+
+	<way changeset="21449789" id="27726826" timestamp="2014-04-02T02:51:23Z" uid="496923" user="abellaofernandez" version="3">
+		<nd ref="304468357" />
+		<nd ref="304468349" />
+		<nd ref="2760019750" />
+		<nd ref="2760019753" />
+		<nd ref="304468350" />
+		<nd ref="1141689124" />
+		<nd ref="1141689126" />
+		<nd ref="304468358" />
+		<nd ref="304468359" />
+		<nd ref="304468357" />
+		<tag k="name" v="Tony Alamo Elementary School" />
+		<tag k="phone" v="(702) 799-2590" />
+		<tag k="amenity" v="school" />
+		<tag k="addr:city" v="Las Vegas" />
+		<tag k="addr:street" v="El Camino Rd" />
+		<tag k="addr:postcode" v="89139" />
+		<tag k="addr:housenumber" v="7455" />
+	</way>
+
+
+	<!-- VONS -->
+		<way changeset="36168796" id="129734760" timestamp="2015-12-26T01:36:11Z" uid="2079050" user="es715" version="2">
+		<nd ref="1430691465" />
+		<nd ref="1430691467" />
+		<nd ref="1430691464" />
+		<nd ref="1430691455" />
+		<nd ref="1430691459" />
+		<nd ref="1430691452" />
+		<nd ref="1430691461" />
+		<nd ref="1430691458" />
+		<nd ref="1430691457" />
+		<nd ref="1430691454" />
+		<nd ref="1430691465" />
+		<tag k="name" v="Vons" />
+		<tag k="shop" v="supermarket" />
+		<tag k="website" v="http://local.vons.com/nv/las-vegas-2614.html" />
+		<tag k="building" v="yes" />
+		<tag k="addr:street" v="South Durango Drive" />
+		<tag k="designation" v="Safeway 2614" />
+		<tag k="addr:postcode" v="89113" />
+		<tag k="addr:housenumber" v="7405" />
+	</way>
+
+
+
+
+
+	<way changeset="16135035" id="221438814" timestamp="2013-05-15T07:28:23Z" uid="7213" user="alimamo" version="1">
+		<nd ref="2304693626" />
+		<nd ref="2304693671" />
+		<nd ref="2304693634" />
+		<nd ref="2304693652" />
+		<nd ref="2304693591" />
+		<nd ref="2304693576" />
+		<nd ref="2304693469" />
+		<nd ref="2304693439" />
+		<nd ref="2304693626" />
+		<tag k="name" v="Camping World" />
+		<tag k="shop" v="outdoor" />
+		<tag k="review" v="no" />
+		<tag k="source" v="Bing" />
+		<tag k="building" v="yes" />
+		<tag k="addr:city" v="Henderson" />
+		<tag k="addr:street" v="South Boulder Highway" />
+		<tag k="addr:country" v="US" />
+		<tag k="addr:postcode" v="89015" />
+		<tag k="addr:housenumber" v="1600" />
+	</way>
