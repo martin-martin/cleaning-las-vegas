@@ -1,1 +1,5 @@
 .ipynb*
+las-vegas_nevada.osm
+cleaning_*.osm
+LV_applied_changes.osm
+*.json

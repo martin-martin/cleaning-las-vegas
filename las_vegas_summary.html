@@ -193,7 +193,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">os</span>
@@ -228,14 +228,14 @@ File Size in MB:    176
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">xml.etree.cElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
 
 <span class="k">def</span> <span class="nf">count_tags</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Creates a dictionary with the tags present in the dataset, alongside a count for each&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;Creates a dictionary with the tags present in the dataset, alongside a count for each.&quot;&quot;&quot;</span>
     <span class="n">tag_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tag_dict</span><span class="p">:</span>
@@ -254,7 +254,7 @@ File Size in MB:    176
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -271,7 +271,7 @@ File Size in MB:    176
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[95]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -327,7 +327,7 @@ Name: tags and their amounts, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">xml.etree.cElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
@@ -335,6 +335,12 @@ Name: tags and their amounts, dtype: int64</pre>
 <span class="kn">import</span> <span class="nn">re</span>
 
 <span class="k">def</span> <span class="nf">audit_street_type</span><span class="p">(</span><span class="n">street_types</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">street_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Checks whether the last word of a string is in a list, if not, it appends to a list.</span>
+<span class="sd">    </span>
+<span class="sd">    Checks the last word of a string against a provided list of expected street types,</span>
+<span class="sd">    if it isn&#39;t it add the street name to a dictionary that is passed as an input.</span>
+<span class="sd">    Reference: https://www.udacity.com/course/viewer#!/c-ud032-nd/l-768058569/e-865319708/m-900198650</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">street_type_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;\b\S+\.?$&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
     <span class="n">found</span> <span class="o">=</span> <span class="n">street_type_re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">street_name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
@@ -346,6 +352,13 @@ Name: tags and their amounts, dtype: int64</pre>
                 <span class="n">street_types</span><span class="p">[</span><span class="n">street_type</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">street_name</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">collect_way_types</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">expected_types</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Searches the tag attributes in an OSM file for street names and adds them to a dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">    Takes as input a file and a list of expected types,</span>
+<span class="sd">    Calls the audit_street_type() function,</span>
+<span class="sd">    Returns a dictionary with street types mapping to a list of street name occurences.</span>
+<span class="sd">    Reference: https://www.udacity.com/course/viewer#!/c-ud032-nd/l-768058569/e-865319708/m-900198650</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">street_types</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;start&#39;</span><span class="p">,)):</span>
         <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s">&#39;way&#39;</span><span class="p">:</span>
@@ -363,7 +376,7 @@ Name: tags and their amounts, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># choosing to exclude the common street types</span>
@@ -387,7 +400,7 @@ Name: tags and their amounts, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="nb">len</span><span class="p">(</span><span class="n">street_types</span><span class="p">)</span>
@@ -401,7 +414,7 @@ Name: tags and their amounts, dtype: int64</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[98]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -441,12 +454,11 @@ This is not the worst currency, at all.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">find_something</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">regex</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Prints all XML elements matching the specified regex somewhere in their tags, </span>
-<span class="sd">    and a link to the specific OSM way. Returns None.&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot; Prints the OSM elements matching the regex, and a link to view them online. Returns None.&quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">re</span>
     <span class="n">flag</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;start&#39;</span><span class="p">,)):</span>
@@ -478,7 +490,7 @@ This is not the worst currency, at all.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">las_vegas_osm</span><span class="p">,</span> <span class="s">&#39;Perfect Waters&#39;</span><span class="p">)</span>
@@ -534,7 +546,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># these can be safely excluded, because they represent (most probably) valid ways</span>
@@ -550,7 +562,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">exclude</span> <span class="o">=</span> <span class="n">common_types</span> <span class="o">+</span> <span class="n">valid_ways</span> <span class="o">+</span> <span class="n">nature_ways</span>
@@ -566,7 +578,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[102]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -640,7 +652,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Reference: https://discussions.udacity.com/t/changing-attribute-value-in-xml/44575/6</span>
@@ -653,7 +665,10 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 <span class="n">NEW_FILE</span> <span class="o">=</span> <span class="s">&#39;cleaning_1.osm&#39;</span>
 
 <span class="k">def</span> <span class="nf">get_ways</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;node&#39;</span><span class="p">,</span> <span class="s">&#39;way&#39;</span><span class="p">,</span> <span class="s">&#39;relation&#39;</span><span class="p">)):</span>
-    <span class="sd">&quot;&quot;&quot;Filters an OSM file and yields the &#39;way&#39; elements.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Filters an OSM file and yields the &#39;way&#39; elements.</span>
+<span class="sd">    </span>
+<span class="sd">    Reference: https://discussions.udacity.com/t/changing-attribute-value-in-xml/44575/6</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="s">&#39;end&#39;</span><span class="p">))</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
@@ -688,7 +703,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># setting the input file to the previous output file</span>
@@ -745,7 +760,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[105]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">modify_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
@@ -781,7 +796,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[106]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">substitute_attrib_value</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;way&#39;</span><span class="p">,</span> <span class="s">&#39;node&#39;</span><span class="p">,</span> <span class="s">&#39;relation&#39;</span><span class="p">)):</span>
@@ -813,7 +828,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">substitute_smth</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">):</span>
@@ -842,7 +857,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[108]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># setting the input file to the previous output file</span>
@@ -868,7 +883,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[109]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Wonderful Day Driive&#39;</span><span class="p">)</span>
@@ -895,7 +910,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Wonderful Day Drive&#39;</span><span class="p">)</span>
@@ -979,15 +994,15 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[111]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">add_attribute</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">elem_id</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">,</span> <span class="n">attrib_value</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;way&#39;</span><span class="p">,</span> <span class="s">&#39;node&#39;</span><span class="p">,</span> <span class="s">&#39;relation&#39;</span><span class="p">)):</span>
-    <span class="sd">&#39;&#39;&#39;Adds a tag Element with attribute and value to a &#39;way&#39; Element specified through an ID.</span>
+    <span class="sd">&quot;&quot;&quot;Adds a tag Element with attribute and value to a &#39;way&#39; Element specified through an ID.</span>
 
 <span class="sd">    Reference:</span>
 <span class="sd">    https://discussions.udacity.com/t/changing-attribute-value-in-xml/44575/6</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="s">&#39;end&#39;</span><span class="p">))</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
@@ -1012,13 +1027,13 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">add_smth</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">elem_id</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">,</span> <span class="n">attrib_value</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Wrapper function: Calls add_attribute() and modify_file().</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper function: Calls add_attribute() and modify_file().</span>
 <span class="sd">    </span>
-<span class="sd">    Adds an attribute with value to an existing &quot;way&quot; tag, writes the changed ET back to the file.&#39;&#39;&#39;</span>
+<span class="sd">    Adds an attribute with value to an existing &quot;way&quot; tag, writes the changed ET back to the file.&quot;&quot;&quot;</span>
     
     <span class="n">add_attribute</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">elem_id</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">,</span> <span class="n">attrib_value</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;way&#39;</span><span class="p">,</span> <span class="s">&#39;node&#39;</span><span class="p">,</span> <span class="s">&#39;relation&#39;</span><span class="p">))</span>
     <span class="n">modify_file</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">add_attribute</span><span class="p">,</span> <span class="n">osm_file</span><span class="p">,</span> <span class="n">elem_id</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">,</span> <span class="n">attrib_value</span><span class="p">)</span>
@@ -1041,7 +1056,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Green Valley Country Club&#39;</span><span class="p">)</span>
@@ -1090,7 +1105,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">add_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;27575073&#39;</span><span class="p">,</span> <span class="s">&#39;building&#39;</span><span class="p">,</span> <span class="s">&#39;yes&#39;</span><span class="p">)</span>
@@ -1103,7 +1118,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Green Valley Country Club&#39;</span><span class="p">)</span>
@@ -1152,11 +1167,11 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">regex</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Returns a list of the IDs of the element(s) matching the specified regex somewhere in their tags.&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;Returns a list of the IDs of the element(s) matching the specified regex somewhere in their tags.&quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">re</span>
     <span class="n">elem_id_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;start&#39;</span><span class="p">,)):</span>
@@ -1175,7 +1190,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">for</span> <span class="n">area</span> <span class="ow">in</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;Estates&#39;</span><span class="p">]:</span>
@@ -1201,7 +1216,7 @@ This is what I call already my <em>more focused</em> exploration :)</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Wanderlust&#39;</span><span class="p">)</span>
@@ -1327,7 +1342,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Wanderlust&#39;</span><span class="p">,</span> <span class="s">&#39;Wanderlust Court&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1340,7 +1355,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">find_something</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Wanderlust&#39;</span><span class="p">)</span>
@@ -1466,7 +1481,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Seven Oaks&#39;</span><span class="p">,</span> <span class="s">&#39;Seven Oaks Way&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1479,7 +1494,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[122]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Padero&#39;</span><span class="p">,</span> <span class="s">&#39;North Padero Drive&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1492,7 +1507,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Scottyboy&#39;</span><span class="p">,</span> <span class="s">&#39;Scottyboy Drive&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1505,7 +1520,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;Seashore&#39;</span><span class="p">,</span> <span class="s">&#39;Seashore Drive&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1518,7 +1533,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[125]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="s">&#39;S FLore del Sol&#39;</span><span class="p">,</span> <span class="s">&#39;S Flore del Sol Street&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1531,7 +1546,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute_smth</span><span class="p">(</span><span class="n">OSM_FILE</span><span class="p">,</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;Avenmue&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;West Fenway Park Avenue&#39;</span><span class="p">,</span> <span class="s">&#39;v&#39;</span><span class="p">)</span>
@@ -1566,7 +1581,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[127]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Many street names have their &#39;type&#39; at the start, when they are non-english type names</span>
@@ -1598,7 +1613,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">all_fine</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Access&#39;</span> <span class="p">:</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;Access&#39;</span><span class="p">],</span>
@@ -1633,7 +1648,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[129]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">add_area_suburb</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Homestretch&#39;</span> <span class="p">:</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;Homestretch&#39;</span><span class="p">],</span>
@@ -1659,7 +1674,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[130]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">add_area_building</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Alex&#39;</span> <span class="p">:</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;Alex&#39;</span><span class="p">]}</span>
@@ -1682,7 +1697,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">add_area</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;P&#39;</span> <span class="p">:</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;P&#39;</span><span class="p">],</span>
@@ -1706,7 +1721,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[132]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">substitute</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Ave&#39;</span> <span class="p">:</span> <span class="n">street_types</span><span class="p">[</span><span class="s">&#39;Ave&#39;</span><span class="p">],</span>
@@ -1743,7 +1758,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[133]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># add area=yes</span>
@@ -1763,7 +1778,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[134]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># add area=yes, building=yes</span>
@@ -1784,7 +1799,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[135]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># add area=yes, place=suburb</span>
@@ -1829,7 +1844,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[136]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># extend street name abbreviations</span>
@@ -1863,7 +1878,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[137]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">all_fine</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -1878,11 +1893,18 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[138]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># adapting the function with the newly learned aspects</span>
 <span class="k">def</span> <span class="nf">collect_way_types</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">expected_types</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Searches the tag attributes in an OSM file for street names and adds them to a dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">    Takes as input a file and a list of expected types, also excludes certain parameters that</span>
+<span class="sd">    either represent a (foreign-language) common street name, or are &#39;way&#39; tags that are no streets.</span>
+<span class="sd">    Calls the audit_street_type() function,</span>
+<span class="sd">    Returns a dictionary with street types mapping to a list of street name occurences.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">street_types</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c"># added these common non-english street names that appear at the beginning rather than the end</span>
     <span class="n">non_eng_street_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Avenida&#39;</span><span class="p">,</span> <span class="s">&#39;Via&#39;</span><span class="p">,</span> <span class="s">&#39;Camino&#39;</span><span class="p">,</span> <span class="s">&#39;Calle&#39;</span><span class="p">,</span> <span class="s">&#39;Vista&#39;</span><span class="p">,</span> <span class="s">&#39;Placida&#39;</span><span class="p">]</span>
@@ -1916,7 +1938,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[139]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="nb">len</span><span class="p">(</span><span class="n">street_types</span><span class="p">)</span>
@@ -1930,7 +1952,7 @@ Check ID online at: http://www.openstreetmap.org/way/210560329
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[139]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[50]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1979,7 +2001,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[140]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">tree_changes</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">ElementTree</span><span class="p">(</span><span class="nb">file</span><span class="o">=</span><span class="n">OSM_FILE</span><span class="p">)</span>
@@ -1994,7 +2016,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[141]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">try_elem</span> <span class="o">=</span> <span class="n">chang_root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -2043,19 +2065,6 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>maybe removing all tags</li>
-<li>reinserting the new ones?</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>So I got some xml elements saved in this findall() returned list, that can now be nicely queried :)</p>
 <p>Maybe this could have saved me lots of work? Well, now I have this, maybe I can work with it!</p>
 
@@ -2064,7 +2073,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[142]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">changes_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -2079,7 +2088,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[143]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="nb">len</span><span class="p">(</span><span class="n">changes_dict</span><span class="p">)</span>
@@ -2093,7 +2102,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[143]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[54]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -2118,14 +2127,14 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">ORIG_FILE</span> <span class="o">=</span> <span class="s">&#39;LV_truncated.osm&#39;</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">ORIG_FILE</span> <span class="o">=</span> <span class="n">las_vegas_osm</span>
 <span class="n">NEW_FILE</span> <span class="o">=</span> <span class="s">&#39;LV_applied_changes.osm&#39;</span>
 
 <span class="k">def</span> <span class="nf">merge_changes</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">changes</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Merges the changes applied on the street names back into the original OSM file structure, creating a new file.&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;Merges the changes applied on the street names back into the original OSM file structure, creating a new file.&quot;&quot;&quot;</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="s">&#39;end&#39;</span><span class="p">))</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
@@ -2146,55 +2155,6 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </pre></div>
 
 </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[145]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">lower</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;^([a-z]|_)*$&#39;</span><span class="p">)</span>
-<span class="n">lower_colon</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;^([a-z]|_)*:([a-z]|_)*$&#39;</span><span class="p">)</span>
-<span class="n">problemchars</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;[=\+/&amp;&lt;&gt;;</span><span class="se">\&#39;</span><span class="s">&quot;\?%#$@\,\. \t\r\n]&#39;</span><span class="p">)</span>
-
-<span class="n">find_something</span><span class="p">(</span><span class="n">NEW_FILE</span><span class="p">,</span> <span class="s">&#39;Eldorado&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Check ID online at: http://www.openstreetmap.org/way/226135717
-
-&lt;way changeset=&quot;16595288&quot; id=&quot;226135717&quot; timestamp=&quot;2013-06-17T20:05:18Z&quot; uid=&quot;3392&quot; user=&quot;SimMoonXP&quot; version=&quot;1&quot;&gt;
-		&lt;nd ref=&quot;137538171&quot; /&gt;
-		&lt;nd ref=&quot;276935081&quot; /&gt;
-		&lt;nd ref=&quot;2121261466&quot; /&gt;
-		&lt;tag k=&quot;name&quot; v=&quot;Eldorado Lane&quot; /&gt;
-		&lt;tag k=&quot;lanes&quot; v=&quot;2&quot; /&gt;
-		&lt;tag k=&quot;highway&quot; v=&quot;residential&quot; /&gt;
-		&lt;tag k=&quot;maxspeed&quot; v=&quot;25 mph&quot; /&gt;
-		&lt;tag k=&quot;tiger:cfcc&quot; v=&quot;A41&quot; /&gt;
-		&lt;tag k=&quot;tiger:county&quot; v=&quot;Clark, NV&quot; /&gt;
-		&lt;tag k=&quot;tiger:zip_left&quot; v=&quot;89123&quot; /&gt;
-		&lt;tag k=&quot;tiger:name_base&quot; v=&quot;Eldorado&quot; /&gt;
-		&lt;tag k=&quot;tiger:name_type&quot; v=&quot;Ln&quot; /&gt;
-		&lt;tag k=&quot;tiger:zip_right&quot; v=&quot;89123&quot; /&gt;
-		&lt;tag k=&quot;tiger:name_direction_prefix&quot; v=&quot;E&quot; /&gt;
-	&lt;/way&gt;
-	
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -2221,7 +2181,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[146]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># Code taken from Lesson 6 and adapted to my situation</span>
@@ -2235,6 +2195,10 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 <span class="n">CREATED</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&quot;version&quot;</span><span class="p">,</span> <span class="s">&quot;changeset&quot;</span><span class="p">,</span> <span class="s">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s">&quot;user&quot;</span><span class="p">,</span> <span class="s">&quot;uid&quot;</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">shape_element</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Shapes an OSM element according to certain parameters into a valid JSON object.</span>
+<span class="sd">    </span>
+<span class="sd">    Reference: https://www.udacity.com/course/viewer#!/c-ud032-nd/l-768058569/e-865240067/m-863660253</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">node</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c"># you should process only 2 types of top level tags: &quot;node&quot; and &quot;way&quot;</span>
     <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s">&quot;way&quot;</span><span class="p">:</span>
@@ -2296,6 +2260,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
         <span class="k">return</span> <span class="bp">None</span>
         
 <span class="k">def</span> <span class="nf">process_map</span><span class="p">(</span><span class="n">file_in</span><span class="p">,</span> <span class="n">pretty</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes an OSM file as input, restructures the Elements to JSON objects and writes a new .json file.&quot;&quot;&quot;</span>
     <span class="n">file_out</span> <span class="o">=</span> <span class="s">&quot;{0}.json&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_in</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_out</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
@@ -2317,7 +2282,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="n">json_struct</span> <span class="o">=</span> <span class="n">process_map</span><span class="p">(</span><span class="s">&#39;las-vegas_nevada.osm&#39;</span><span class="p">)</span>
@@ -2330,7 +2295,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[148]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># take a look at the data</span>
@@ -2372,7 +2337,7 @@ So it's not wasted time and effort, but I think of those things it's enough now,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[149]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># doing a random query</span>
@@ -2609,7 +2574,28 @@ A short peek (by removing the <code>.count()</code> and running it again) alread
 <li>adapt the <code>audit_street_type()</code> function to return a more useful street type dictionary that excludes speciality cases</li>
 <li>scrape the TIGER data online to extract a valid mapping of street type abbreviations to their full-length versions, then use it for a mapping</li>
 </ul>
-<p>Then it could be very interesting to explore the data more with MongoDB. There are many different ways of creating cursor objects (with different operators and pipelines), that can allow a relatively easy and efficient way to analyze the dataset. Probably easier than it was trying to work it with the ET module. As a short immediate idea, I could adapt the regex pattern or add logical operators to exclude the fast-food chain from the results, take a closer look at the documents returned in the cursor object, and eventually consider cleaning it there.</p>
+<h4 id="Example:-Further-Improvement-towards-an-interesting-analysis,-potential-problems">Example: Further Improvement towards an interesting analysis, potential problems<a class="anchor-link" href="#Example:-Further-Improvement-towards-an-interesting-analysis,-potential-problems">&#182;</a></h4><p>My cleaning and analysis focused on cleaning text-based data. However, there is also e.g. numeric or datetime-object data (<strong>timestamp</strong>) present in an OSM database. Even though they are stored as strings, processing them automatted with python could go different routes. I don't know very much about python datetime objects. However, I think that after scraping them from the XML they could be converted to valid datetime-objects and then compared and analyzed in different ways.</p>
+<p>It could be interesting, for example, to create a visualization of the OSM map of Las Vegas that would slowly grow in complexity through time - with assessing the elements time-based and building the map accordingly.</p>
+<p>I imagine that this would first need a thorough audit of the datetime entries in the OSM file. Eventual problems that could be encountered in this would be:</p>
+<ul>
+<li>there are <a href="https://docs.python.org/2/library/datetime.html">more than one datetime-formats</a>, therefore some entries might be submitted in a different format than others. These would have to first be spotted, and then also cleaned. (even though looking over it fast, they seem to be pretty consistent, and maybe OSM nicely enforces automated timestamps when an entry is created)</li>
+<li>during the conversion of different formats there might be a loss of accuracy happening. E.g. some entries might have <em>seconds</em> associated with them, others only <em>days</em> -&gt; this would cause troubles in creating the visualization and would have to be decided how to handle it.</li>
+<li>some elements might not have a datetime associated. There could be simply missing values, or <em>dummy</em> values that OSM adds when the datetime got missing.</li>
+<li>even if timestamp values are added automatically, there might be some issues coming from people living in different timezones when editing offline (although I hope and imagine that OSM has this covered by e.g. taking the values automatically in UTC)</li>
+<li>when users batch-upload previously made entries, the timestamps might be very similar and difficult to put in a valid timeline (however, this is more an issue when creating the visualization, but could be maybe already considered when auditing)</li>
+<li>...</li>
+</ul>
+<h4 id="Example-2:-Further-Improvement-of-the-dataset">Example 2: Further Improvement of the dataset<a class="anchor-link" href="#Example-2:-Further-Improvement-of-the-dataset">&#182;</a></h4><p>What I did in my auditing and cleaning focused mainly on street names, and also on adding additional tags. There are also other values inside the OSM elements that wouldn't mind some grooming! There is e.g. the example discussed in the course material of <strong>validating ZIP codes</strong>. It could be interesting to extract all those values and collect them in a dictionary that could be audited and used for cleaning purposes.</p>
+<p>Eventual problems I can imagine are:</p>
+<ul>
+<li>scraping the values with a <code>\d</code> regex might produce misleading results, because it could exclude "wrong" data, such as ZIP codes separated by <code>-</code> or those (accidentally) containing letters</li>
+<li>some codes might be from elsewhere - I need to have knowledge of which are the valid ZIP codes of the area</li>
+<li>similarly to the issues I've encountered with the street names, it is possible that the postcodes are stored in different tag values, e.g. some might be in <code>addr:postcode</code>, and others stored with an individual key called <code>zipcode</code>. These are only examples I made up now to illustrate a problem there.</li>
+</ul>
+<p>Benefits of doing this cleanup are evident, as it would make it possible to e.g. display all entries according to their ZIP code area and do statistical analysis regarding the amount of entries per such unit (or many many other such things) :)</p>
+<p>Big data is big, and there are loads of opportunities!</p>
+<hr>
+<p>Aside from further cleaning, it could be very interesting to explore the data more with MongoDB. There are many different ways of creating cursor objects (with different operators and pipelines), that can allow a relatively easy and efficient way to analyze the dataset. Probably easier than it was trying to work it with the ET module. As a short immediate idea, I could adapt the regex pattern or add logical operators to exclude the fast-food chain from the results, take a closer look at the documents returned in the cursor object, and eventually consider cleaning it there.</p>
 <hr>
 <p>However, I believe that I've worked enough on this project, so I will not dive into these possible further steps now.
 I hope that you'll have a bit of fun or an interesting time looking into my project, and am looking forward to your feedback! :)</p>
